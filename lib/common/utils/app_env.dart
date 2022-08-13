@@ -11,7 +11,7 @@ final Map<ENV, String> _baseUrl = {
   ENV.DEV: 'http://saas.3dsqq.com',
   ENV.TEST: 'http://saas.3dsqq.com',
   ENV.PRE: 'http://urlpre.com',
-  ENV.PROD: 'https://ckts.queqiaochina.com',
+  ENV.PROD: 'http://note.3dsqq.com',
 };
 
 /// app环境
