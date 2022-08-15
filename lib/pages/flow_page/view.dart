@@ -14,7 +14,9 @@ import 'logic.dart';
 
 class FlowPage extends StatelessWidget {
   final logic = Get.find<FlowPageLogic>();
-  final state = Get.find<FlowPageLogic>().state;
+  final state = Get
+      .find<FlowPageLogic>()
+      .state;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String title = "微信推文";
@@ -50,7 +52,9 @@ class FlowPage extends StatelessWidget {
                         child: CustomScrollView(
                           physics: const BouncingScrollPhysics(),
                           slivers: <Widget>[
-                            Obx(()=>_buildContent()),
+                            GetBuilder<FlowPageLogic>(builder: (logic) {
+                              return _buildContent();
+                            }),
                           ],
                         ),
                       )),
@@ -67,7 +71,9 @@ class FlowPage extends StatelessWidget {
         children: [
           Text(title,
               style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                   fontSize: 48.sp,
                   fontWeight: FontWeight.bold)),
         ],
@@ -79,12 +85,12 @@ class FlowPage extends StatelessWidget {
       actions: <Widget>[
         IconButton(
           icon: const Icon(
-            Icons.search,
+            Icons.add,
             color: Colors.black87,
           ),
           onPressed: () {
-            Get.toNamed(AppRoutes.SearchFlow,arguments:logic.selectItems )?.then((value) {
-
+            Get.toNamed(AppRoutes.SearchFlow, arguments: logic.selectItems)
+                ?.then((value) {
               logic.onRefresh();
             });
           },
@@ -96,46 +102,47 @@ class FlowPage extends StatelessWidget {
   }
 
   Widget _buildContent() {
-    return logic.state.wxUser.isNotEmpty
+    return logic.wxUser.isNotEmpty
         ? SliverToBoxAdapter(
-            child: Center(
-            child: Container(
-              alignment: FractionalOffset.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  MyFlow(
-                    liveData: logic.state.wxUser,
-                  )
-                ],
-              ),
+        child: Center(
+          child: Container(
+            alignment: FractionalOffset.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                MyFlow(
+                  liveData: logic.wxUser,
+
+                )
+              ],
             ),
-          ))
+          ),
+        ))
         : SliverToBoxAdapter(
-            child: Center(
-            child: Container(
-              padding: EdgeInsets.only(top: 200.h),
-              alignment: FractionalOffset.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  EmptyPage(),
-                  // Icon(Icons.airplay, color: Colors.orangeAccent, size: 300.sp),
-                  // Container(
-                  //
-                  //   child: Text(
-                  //     "暂时没有用户了",
-                  //     style: TextStyle(
-                  //       fontSize: 40.sp,
-                  //       color: Colors.orangeAccent,
-                  //     ),
-                  //   ),
-                  // )
-                ],
-              ),
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.only(top: 200.h),
+            alignment: FractionalOffset.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                EmptyPage(),
+                // Icon(Icons.airplay, color: Colors.orangeAccent, size: 300.sp),
+                // Container(
+                //
+                //   child: Text(
+                //     "暂时没有用户了",
+                //     style: TextStyle(
+                //       fontSize: 40.sp,
+                //       color: Colors.orangeAccent,
+                //     ),
+                //   ),
+                // )
+              ],
             ),
-          ));
+          ),
+        ));
   }
 }

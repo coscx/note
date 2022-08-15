@@ -21,6 +21,7 @@ class ApplicationBinding implements Bindings {
     Get.lazyPut<MainController>(() => MainController());
     Get.lazyPut<TotalUserLogic>(() => TotalUserLogic());
     Get.lazyPut<FineLogic>(() => FineLogic());
+    Get.lazyPut<FlowPageLogic>(() => FlowPageLogic());
     Get.lazyPut<MyUserLogic>(() => MyUserLogic());
     Get.lazyPut<AuditUserLogic>(() => AuditUserLogic());
     Get.lazyPut(() => LostLogic());

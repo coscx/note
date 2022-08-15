@@ -14,6 +14,7 @@ import 'package:flutter_note/common/routers/routes.dart';
 import 'package:flutter_note/common/utils/utils.dart';
 import 'package:flutter_note/common/values/values.dart';
 import 'package:flutter_note/pages/conversion/logic.dart';
+import 'package:flutter_note/pages/flow_page/view.dart';
 import 'package:flutter_note/pages/peer_chat/logic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -119,7 +120,7 @@ class ApplicationController extends GetxController {
       tabTitles = ['首页', '渠道', '计算器', '消息', '我的'];
       pages = [
         TotalUserPage(),
-        ChannelPage(),
+        FlowPage(),
         CalcucationPage(),
         ConversionPage(),
         MinePage()
