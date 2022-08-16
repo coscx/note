@@ -88,7 +88,7 @@ Widget  _buildToQuotaList(){
       padding: EdgeInsets.only(top: 100.h,),
       child: GestureDetector(
         onTap: (){
-           Get.toNamed(AppRoutes.CalcucationList);
+           Get.toNamed(AppRoutes.NoteBoard);
         },
         child: Container(
           child: Text("历史测算记录",style: TextStyle(fontFamily: "PingFang",fontSize: 30.sp,color: Color(0xffDE2821)),

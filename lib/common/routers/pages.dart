@@ -28,6 +28,8 @@ import 'package:flutter_note/pages/frame/sign_up/index.dart';
 import 'package:flutter_note/pages/frame/welcome/index.dart';
 import 'package:flutter_note/pages/group_chat/binding.dart';
 import 'package:flutter_note/pages/group_chat/view.dart';
+import 'package:flutter_note/pages/hand/binding.dart';
+import 'package:flutter_note/pages/hand/view.dart';
 import 'package:flutter_note/pages/home/view.dart';
 import 'package:flutter_note/pages/my_user/binding.dart';
 import 'package:flutter_note/pages/my_user/view.dart';
@@ -340,6 +342,12 @@ class AppPages {
         name: AppRoutes.AuditUser,
         page: () => AuditUserPage(),
         binding: AuditUserBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(
+        name: AppRoutes.NoteBoard,
+        page: () => HandPage(),
+        binding: HandBinding(),
         transition: Transition.rightToLeft
     ),
   ];
