@@ -20,6 +20,8 @@ class NotePainterState extends State<NotePainter> {
   OverlayEntry? overlayEntry;
   bool remove = false;
   bool hidden =false;
+  double _rotation = 0.0;
+  double _baseRotation = 0.0;
   onRemove() {
     overlayEntry?.remove();
     remove = true;
@@ -68,16 +70,17 @@ class NotePainterState extends State<NotePainter> {
   Widget buildFlower(
     OverlayEntry overlayEntry,
   ) {
-    return Container(
+    return Transform.rotate(
+      angle:_rotation ,
+      child:Container(
       height: height,
       width: width,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: Colors.redAccent,
         // borderRadius: BorderRadius.all(Radius.circular(height / 2))
       ),
-      child: Container(
-        child: Stack(
+      child:  Stack(
           clipBehavior: Clip.none,
           children: [
             Positioned(
@@ -107,6 +110,9 @@ class NotePainterState extends State<NotePainter> {
               right: 20.w,
               child: hidden ? GestureDetector(
                   behavior: HitTestBehavior.opaque,
+                  onTap: (){
+                    print("object");
+                  },
                   onPanUpdate: (DragUpdateDetails details) {
                     height = height - details.delta.dy;
                     width = width + details.delta.dx;
@@ -116,9 +122,37 @@ class NotePainterState extends State<NotePainter> {
                     if (width < 150){
                       width =150;
                     }
-                    print(details.delta);
+                    //print(details.delta);
                     overlayEntry.markNeedsBuild();
+                      Offset centerOfGestureDetector = Offset(
+                          ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
+                      final touchPositionFromCenter =
+                          details.localPosition - centerOfGestureDetector;
+                      setState(() {
+                        _rotation =
+                            touchPositionFromCenter.direction- _baseRotation;
+                      });
                   },
+                  onPanStart: (details) {
+                    Offset centerOfGestureDetector = Offset(
+                        ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
+                    final touchPositionFromCenter =
+                        details.localPosition - centerOfGestureDetector;
+                    _baseRotation =
+                        touchPositionFromCenter.direction - _rotation;
+                  },
+                  // onPanUpdate: (details) {
+                  //
+                  //   Offset centerOfGestureDetector = Offset(
+                  //       ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
+                  //   final touchPositionFromCenter =
+                  //       details.localPosition - centerOfGestureDetector;
+                  //   setState(() {
+                  //     _rotation =
+                  //         touchPositionFromCenter.direction - _baseRotation;
+                  //   });
+
+                  //},
                   child: Container(
                    // color: Colors.yellow,
                     child: Icon(
@@ -139,11 +173,35 @@ class NotePainterState extends State<NotePainter> {
                   child: Container(
                     //color: Colors.yellow,
                     child: Icon(
-                      Icons.dangerous_outlined,
+                      Icons.dark_mode,
                       size: 50.w,
                     ),
                   )):Container(),
             ),
+            // Positioned(
+            //   bottom: 20.h,
+            //   right: 20.w,
+            //   child: hidden ?GestureDetector(
+            //       behavior: HitTestBehavior.opaque,
+            //       onScaleStart: (_){
+            //         _baseRotation = _rotation;
+            //       },
+            //       onScaleUpdate: (ScaleUpdateDetails e){
+            //         setState((){
+            //            if(e.rotation != 0){
+            //              _rotation = _baseRotation + e.rotation;//选转量
+            //            }
+            //         });
+            //       },
+            //       child: Container(
+            //         //color: Colors.yellow,
+            //         child: Icon(
+            //           Icons.dark_mode,
+            //           size: 100.w,
+            //         ),
+            //       )):Container(),
+            // ),
+
           ],
         ),
       ),
@@ -161,7 +219,7 @@ class NotePainterState extends State<NotePainter> {
       },
       onPanUpdate: (DragUpdateDetails details) {
         offset = offset + details.delta;
-        print(offset);
+       // print(offset);
         overlayEntry.markNeedsBuild();
       },
       onLongPress: () {},

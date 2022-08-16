@@ -62,16 +62,28 @@ class _NoteBoardState extends State<NoteBoard> {
                               width: 600.w,
                             ));
 
-                        GlobalKey<NotePainterState> s1 = GlobalKey();
-                        m["12"] = s1;
-                        widgetList.add(NotePainter(
-                          key: s1,
-                          offset: Offset(50.w, 100.h), w: Container(
-                          child: Image.asset("assets/images/note/b40.png"),
-                        ),
-                          height: 400.h,
-                          width: 400.w,
-                        ));
+                        // GlobalKey<NotePainterState> s1 = GlobalKey();
+                        // m["12"] = s1;
+                        // widgetList.add(NotePainter(
+                        //   key: s1,
+                        //   offset: Offset(50.w, 100.h), w: Container(
+                        //   child: Image.asset("assets/images/note/b40.png"),
+                        // ),
+                        //   height: 400.h,
+                        //   width: 400.w,
+                        // ));
+                        //
+                        // GlobalKey<NotePainterState> s3 = GlobalKey();
+                        // m["14"] = s3;
+                        // widgetList.add(NotePainter(
+                        //   key: s3,
+                        //   offset: Offset(50.w, 100.h), w: Container(
+                        //   child: Text("和规范化规范化规范化风格化法国大华股份风格的和风格的和发个恢复供电和法规和风格和风格和风格和风格和规范化的恢复供电和房东改恢复供电和"),
+                        // ),
+                        //   height: 100.h,
+                        //   width: 400.w,
+                        // ));
+
                         setState(() {
 
                         });
