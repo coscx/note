@@ -51,6 +51,17 @@ class _NoteBoardState extends State<NoteBoard> {
                   children: [
                     GestureDetector(
                       onTap: () {
+
+                        GlobalKey<NotePainterState> s2 = GlobalKey();
+                        m["13"] = s2;
+                        widgetList.add(
+                            NotePainter(key: s2, offset: Offset(100.w, 400.h), w: Container(
+                              child: Image.asset("assets/images/note/c11.png"),
+                            ),
+                              height: 600.h,
+                              width: 600.w,
+                            ));
+
                         GlobalKey<NotePainterState> s1 = GlobalKey();
                         m["12"] = s1;
                         widgetList.add(NotePainter(
@@ -61,15 +72,6 @@ class _NoteBoardState extends State<NoteBoard> {
                           height: 400.h,
                           width: 400.w,
                         ));
-                        GlobalKey<NotePainterState> s2 = GlobalKey();
-                        m["13"] = s2;
-                        widgetList.add(
-                            NotePainter(key: s2, offset: Offset(100.w, 400.h), w: Container(
-                              child: Image.asset("assets/images/note/c11.png"),
-                            ),
-                              height: 600.h,
-                              width: 600.w,
-                            ));
                         setState(() {
 
                         });
@@ -101,17 +103,26 @@ class _NoteBoardState extends State<NoteBoard> {
               )
             ],
           ),
-          body: Container(
-              margin: EdgeInsets.only(
-                  top: 20.h, bottom: 40.h, left: 20.w, right: 20.w),
-              height: ScreenUtil().screenHeight - 100.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.w)),
-                image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
-              ),
-              child: Column(
-                children: widgetList,
-              )
+          body: GestureDetector(
+            onTap: (){
+              m.forEach((key, value) {
+                if (value.currentState != null) {
+                    value.currentState?.onHidden();
+                }
+              });
+            },
+            child: Container(
+                margin: EdgeInsets.only(
+                    top: 20.h, bottom: 40.h, left: 20.w, right: 20.w),
+                height: ScreenUtil().screenHeight - 100.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.w)),
+                  image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
+                ),
+                child: Stack(
+                  children: widgetList,
+                )
+            ),
           ),
         ),
       ),

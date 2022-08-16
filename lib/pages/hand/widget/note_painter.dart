@@ -19,12 +19,15 @@ class NotePainterState extends State<NotePainter> {
   double height = 200.h;
   OverlayEntry? overlayEntry;
   bool remove = false;
-
+  bool hidden =false;
   onRemove() {
     overlayEntry?.remove();
     remove = true;
   }
-
+  onHidden() {
+    hidden = false;
+    overlayEntry?.markNeedsBuild();
+  }
   onAdd() {
     _showFloating();
   }
@@ -88,21 +91,21 @@ class NotePainterState extends State<NotePainter> {
                   padding: EdgeInsets.only(left: 10.w, right: 10.w),
                   width: width-60.w,
                   height: height-60.h,
-                  child: DottedBorder(
+                  child: hidden ? DottedBorder(
                     strokeWidth: 2.w,
                       dashPattern: [8, 4],
                       borderType: BorderType.RRect,
                       radius: Radius.circular(6.w),
                       padding: EdgeInsets.all(12.w),
                       child: widget.w
-                  ),
+                  ):widget.w,
                 ),
               ),
             ),
             Positioned(
               top: 20.h,
               right: 20.w,
-              child: GestureDetector(
+              child: hidden ? GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onPanUpdate: (DragUpdateDetails details) {
                     height = height - details.delta.dy;
@@ -122,12 +125,12 @@ class NotePainterState extends State<NotePainter> {
                       Icons.ac_unit,
                       size: 50.w,
                     ),
-                  )),
+                  )):Container(),
             ),
             Positioned(
               top: 20.h,
               left: 20.w,
-              child: GestureDetector(
+              child: hidden ?GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
                     overlayEntry.remove();
@@ -139,7 +142,7 @@ class NotePainterState extends State<NotePainter> {
                       Icons.dangerous_outlined,
                       size: 50.w,
                     ),
-                  )),
+                  )):Container(),
             ),
           ],
         ),
@@ -153,6 +156,7 @@ class NotePainterState extends State<NotePainter> {
       behavior: HitTestBehavior.deferToChild,
       onPanDown: (details) {
         //offset = details.globalPosition - Offset(height / 2, height / 2);
+        hidden = true;
         overlayEntry.markNeedsBuild();
       },
       onPanUpdate: (DragUpdateDetails details) {
