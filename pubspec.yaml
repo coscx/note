@@ -80,7 +80,7 @@ dependencies:
   left_scroll_actions: ^2.1.0
   logger: ^1.1.0
   lpinyin: ^2.0.2
-  location: ^4.4.0
+#  location: ^4.4.0
   multi_image_picker: ^4.8.1
   menu_button: ^1.4.2+1
   multiselect_scope: ^0.2.0

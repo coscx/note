@@ -83,6 +83,93 @@ class NotePainterState extends State<NotePainter> {
       child:  Stack(
           clipBehavior: Clip.none,
           children: [
+
+            Positioned(
+              top: 20.h,
+              right: 20.w,
+              child:Offstage(
+              offstage: !hidden,
+              child:GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: (){
+                      print("object");
+                    },
+                    onPanUpdate: (DragUpdateDetails details) {
+                      height = height + details.delta.dy;
+                      width = width + details.delta.dx;
+                      if (height < 150){
+                        height=150;
+                      }
+                      if (width < 150){
+                        width =150;
+                      }
+                      if (height > 300){
+                        height=300;
+                      }
+                      if (width > 300){
+                        width =300;
+                      }
+
+                      //print(details.delta);
+                      overlayEntry.markNeedsBuild();
+                        Offset centerOfGestureDetector = Offset(
+                            ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
+                        final touchPositionFromCenter =
+                            details.localPosition-  centerOfGestureDetector;
+                        setState(() {
+                          _rotation =
+                              touchPositionFromCenter.direction- _baseRotation;
+                        });
+                    },
+                    onPanStart: (details) {
+                      Offset centerOfGestureDetector = Offset(
+                          ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
+                      final touchPositionFromCenter =
+                          details.localPosition-centerOfGestureDetector ;
+                      _baseRotation =
+                          touchPositionFromCenter.direction-  _rotation;
+                    },
+                    // onPanUpdate: (details) {
+                    //
+                    //   Offset centerOfGestureDetector = Offset(
+                    //       ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
+                    //   final touchPositionFromCenter =
+                    //       details.localPosition - centerOfGestureDetector;
+                    //   setState(() {
+                    //     _rotation =
+                    //         touchPositionFromCenter.direction - _baseRotation;
+                    //   });
+
+                    //},
+                    child: Container(
+                     // color: Colors.yellow,
+                      child: Icon(
+                        Icons.ac_unit,
+                        size: 150.w,
+                      ),
+                    )),
+              ),
+            ),
+            Positioned(
+              top: 20.h,
+              left: 20.w,
+              child:Offstage(
+              offstage: !hidden,
+              child:  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      overlayEntry.remove();
+                      remove = true;
+                    },
+                    child: Container(
+                      //color: Colors.yellow,
+                      child: Icon(
+                        Icons.dark_mode,
+                        size: 150.w,
+                      ),
+                    )),
+              ),
+            ),
             Positioned(
               bottom: 20.h,
               left: 20.w,
@@ -92,91 +179,22 @@ class NotePainterState extends State<NotePainter> {
                 child: Container(
                   margin: EdgeInsets.only(left: 20.w, right: 20.w),
                   padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                  width: width-60.w,
-                  height: height-60.h,
+                  width: width-160.w,
+                  height: height-160.h,
                   child: hidden ? DottedBorder(
-                    strokeWidth: 2.w,
+                      strokeWidth: 2.w,
                       dashPattern: [8, 4],
                       borderType: BorderType.RRect,
                       radius: Radius.circular(6.w),
                       padding: EdgeInsets.all(12.w),
-                      child: widget.w
+                      child: Container(
+                          width: width-160.w,
+                          height: height-160.h,
+                          child: widget.w
+                      )
                   ):widget.w,
                 ),
               ),
-            ),
-            Positioned(
-              top: 20.h,
-              right: 20.w,
-              child: hidden ? GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: (){
-                    print("object");
-                  },
-                  onPanUpdate: (DragUpdateDetails details) {
-                    height = height - details.delta.dy;
-                    width = width + details.delta.dx;
-                    if (height < 150){
-                      height=150;
-                    }
-                    if (width < 150){
-                      width =150;
-                    }
-                    //print(details.delta);
-                    overlayEntry.markNeedsBuild();
-                      Offset centerOfGestureDetector = Offset(
-                          ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
-                      final touchPositionFromCenter =
-                          details.localPosition - centerOfGestureDetector;
-                      setState(() {
-                        _rotation =
-                            touchPositionFromCenter.direction- _baseRotation;
-                      });
-                  },
-                  onPanStart: (details) {
-                    Offset centerOfGestureDetector = Offset(
-                        ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
-                    final touchPositionFromCenter =
-                        details.localPosition - centerOfGestureDetector;
-                    _baseRotation =
-                        touchPositionFromCenter.direction - _rotation;
-                  },
-                  // onPanUpdate: (details) {
-                  //
-                  //   Offset centerOfGestureDetector = Offset(
-                  //       ScreenUtil().screenWidth / 2, ScreenUtil().screenHeight / 2);
-                  //   final touchPositionFromCenter =
-                  //       details.localPosition - centerOfGestureDetector;
-                  //   setState(() {
-                  //     _rotation =
-                  //         touchPositionFromCenter.direction - _baseRotation;
-                  //   });
-
-                  //},
-                  child: Container(
-                   // color: Colors.yellow,
-                    child: Icon(
-                      Icons.ac_unit,
-                      size: 50.w,
-                    ),
-                  )):Container(),
-            ),
-            Positioned(
-              top: 20.h,
-              left: 20.w,
-              child: hidden ?GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    overlayEntry.remove();
-                    remove = true;
-                  },
-                  child: Container(
-                    //color: Colors.yellow,
-                    child: Icon(
-                      Icons.dark_mode,
-                      size: 50.w,
-                    ),
-                  )):Container(),
             ),
             // Positioned(
             //   bottom: 20.h,

@@ -56,7 +56,7 @@ class _NoteBoardState extends State<NoteBoard> {
                         m["13"] = s2;
                         widgetList.add(
                             NotePainter(key: s2, offset: Offset(100.w, 400.h), w: Container(
-                              child: Image.asset("assets/images/note/c11.png"),
+                              child: Image.asset("assets/images/note/c11.png",fit: BoxFit.fill,),
                             ),
                               height: 600.h,
                               width: 600.w,
@@ -132,7 +132,28 @@ class _NoteBoardState extends State<NoteBoard> {
                   image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
                 ),
                 child: Stack(
-                  children: widgetList,
+                  children:[
+                    ...widgetList,
+                    GestureDetector(
+                      onDoubleTap: (){
+                        m.forEach((key, value) {
+                          if (value.currentState != null) {
+                            value.currentState?.onHidden();
+                          }
+                        });
+                      },
+                      child: Container(
+                          margin: EdgeInsets.only(
+                              top: 20.h, bottom: 40.h, left: 20.w, right: 20.w),
+                          height: ScreenUtil().screenHeight - 100.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20.w)),
+                              image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
+                          ),
+
+                      ),
+                    ),
+                  ]
                 )
             ),
           ),
