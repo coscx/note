@@ -21,8 +21,6 @@ dependencies:
     git: https://github.com/coscx/flutter_gifimage.git
   flutter_my_picker_null_safety:
     git: https://github.com/coscx/flutter_my_picker_null_safety.git
-  photo_view:
-    git: https://github.com/bluefireteam/photo_view
   umeng_analytics_with_push:
     git: https://github.com/coscx/umeng_push.git
   another_xlider: ^1.1.2
@@ -91,6 +89,7 @@ dependencies:
   package_info: ^2.0.2
   path_provider: ^2.0.9
   permission_handler: ^9.2.0
+  photo_view: ^0.14.0
   qr_flutter: ^4.0.0
   record: ^3.0.4
   radial_menu: ^0.0.1

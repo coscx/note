@@ -53,15 +53,27 @@ class _NoteBoardState extends State<NoteBoard> {
                       onTap: () {
 
                         GlobalKey<NotePainterState> s2 = GlobalKey();
-                        m["13"] = s2;
+                        m["s2"] = s2;
                         widgetList.add(
-                            NotePainter(key: s2, offset: Offset(100.w, 400.h), w: Container(
-                              child: Image.asset("assets/images/note/c11.png",fit: BoxFit.fill,),
-                            ),
-                              height: 600.h,
-                              width: 600.w,
+                            NotePainter(key: s2, offset: Offset(0.w, 0.h), w:
+                             Image.asset("assets/images/note/c11.png",fit: BoxFit.fill,).image,
+                              height: 250.h,
+                              width: 250.w,
+                              rotation: 0.0,
+                              scale: 0.4,
+                              maxScale: 0.4,
                             ));
-
+                        GlobalKey<NotePainterState> s3 = GlobalKey();
+                        m["s3"] = s3;
+                        widgetList.add(
+                            NotePainter(key: s3, offset: Offset(0.w, 0.h), w:
+                            Image.asset("assets/images/note/d04.png",fit: BoxFit.fill,).image,
+                              height: 250.h,
+                              width: 250.w,
+                              rotation: 0.0,
+                              scale: 0.4,
+                              maxScale: 0.7,
+                            ));
                         // GlobalKey<NotePainterState> s1 = GlobalKey();
                         // m["12"] = s1;
                         // widgetList.add(NotePainter(
@@ -96,12 +108,9 @@ class _NoteBoardState extends State<NoteBoard> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        m.forEach((key, value) {
-                          if (value.currentState != null) {
-                            if (!value.currentState!.remove) {
-                              value.currentState?.onRemove();
-                            }
-                          }
+                        widgetList.clear();
+                        setState(() {
+
                         });
                       },
                       child: Text("移除插件",
@@ -115,37 +124,37 @@ class _NoteBoardState extends State<NoteBoard> {
               )
             ],
           ),
-          body: GestureDetector(
-            onTap: (){
-              m.forEach((key, value) {
-                if (value.currentState != null) {
-                    value.currentState?.onHidden();
-                }
-              });
-            },
+          body: Container(
+            // onTap: (){
+            //   m.forEach((key, value) {
+            //     if (value.currentState != null) {
+            //         value.currentState?.onHidden();
+            //     }
+            //   });
+            // },
             child: Container(
                 margin: EdgeInsets.only(
                     top: 20.h, bottom: 40.h, left: 20.w, right: 20.w),
                 height: ScreenUtil().screenHeight - 100.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.w)),
-                  image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
+                 // image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
                 ),
                 child: Stack(
                   children:[
-                    ...widgetList,
-                    GestureDetector(
-                      onDoubleTap: (){
-                        m.forEach((key, value) {
-                          if (value.currentState != null) {
-                            value.currentState?.onHidden();
-                          }
-                        });
-                      },
+
+                    Positioned(
+                      // onDoubleTap: (){
+                      //   m.forEach((key, value) {
+                      //     if (value.currentState != null) {
+                      //       value.currentState?.onHidden();
+                      //     }
+                      //   });
+                      // },
                       child: Container(
                           margin: EdgeInsets.only(
-                              top: 20.h, bottom: 40.h, left: 20.w, right: 20.w),
-                          height: ScreenUtil().screenHeight - 100.h,
+                              top: 0.h, bottom: 0.h, left: 0.w, right: 0.w),
+                          height: ScreenUtil().screenHeight - 0.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(20.w)),
                               image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
@@ -153,6 +162,7 @@ class _NoteBoardState extends State<NoteBoard> {
 
                       ),
                     ),
+                    ...widgetList,
                   ]
                 )
             ),
