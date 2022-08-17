@@ -1,14 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_note/common/utils/common.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../../../common/widgets/dot_borad/dotted_border.dart';
-
 class NotePainter extends StatefulWidget {
   const NotePainter(
-      {Key? key, this.offset, required this.w, this.width, this.height, this.rotation, this.scale, this.maxScale})
+      {Key? key,
+      this.offset,
+      required this.w,
+      this.width,
+      this.height,
+      this.rotation,
+      this.scale,
+      this.maxScale,
+      this.rote,
+      })
       : super(key: key);
   final Offset? offset;
   final double? width;
@@ -16,8 +24,8 @@ class NotePainter extends StatefulWidget {
   final double? rotation;
   final double? scale;
   final double? maxScale;
-  final ImageProvider w;
-
+  final Widget w;
+  final double? rote;
   @override
   State<NotePainter> createState() => NotePainterState();
 }
@@ -30,20 +38,19 @@ class NotePainterState extends State<NotePainter> {
   bool remove = false;
   bool hidden = false;
   double _rotation = 0;
-  double _scale =1.0;
-  double _currentScale =1.0;
-  double _maxScale =0.5;
+  double _scale = 1.0;
+  double _currentScale = 1.0;
+  double _maxScale = 0.5;
   double _baseRotation = 0.0;
   double gWidth = 600.w;
   double gHeight = 600.h;
+  double _rote =0;
   late PhotoViewController p;
 
   onRemove() {
     //overlayEntry?.remove();
     remove = true;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   onHidden() {
@@ -72,22 +79,27 @@ class NotePainterState extends State<NotePainter> {
       gHeight = widget.height!;
     }
     if (widget.rotation != null) {
-      _rotation  = widget.rotation!;
+      _rotation = widget.rotation!;
     }
     if (widget.scale != null) {
-      _scale  = widget.scale!;
+      _scale = widget.scale!;
       //_currentScale = _scale;
     }
+    if (widget.rote != null) {
+      if(widget.rote  == 1){
+        _rote =pi;
+      }
+    }
     if (widget.maxScale != null) {
-      _maxScale  = widget.maxScale!;
-      if(_scale >_maxScale ){
+      _maxScale = widget.maxScale!;
+      if (_scale > _maxScale) {
         _scale = _maxScale;
       }
     }
 
     if (widget.rotation != null) {
       p = PhotoViewController(initialRotation: widget.rotation!);
-    }else{
+    } else {
       p = PhotoViewController(initialRotation: 0);
     }
 
@@ -278,42 +290,48 @@ class NotePainterState extends State<NotePainter> {
       onLongPress: () {
         print("onLongPress");
       },
-      child:  Container(
-           color: Colors.transparent,
-           width: gWidth,
-          height: gHeight,
-          child: OverflowBox(
-            maxWidth: 800.w,
-            maxHeight: 800.h,
-            child:PhotoViewGallery.builder(
-            allowImplicitScrolling: true,
-            //customSize: Size(gWidth, gHeight),
-            itemCount: 1,
-            scrollDirection: Axis.horizontal,
-            enableRotation: true,
-            gaplessPlayback: true,
-            backgroundDecoration: BoxDecoration(
+      child: Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationY(_rote),
+          child: Container(
+            decoration: BoxDecoration(
               color: Colors.transparent,
+              borderRadius: BorderRadius.all(Radius.circular(gHeight/2)),
+              // image: DecorationImage(image: Image.asset("assets/images/note/a_10.png").image,fit: BoxFit.fill)
             ),
-            builder: _buildPageOptions,
-            scaleStateChangedCallback: _onScaleStateChanged,
-          ),
-        ),
-      ),
+            width: gWidth,
+            height: gHeight,
+            child: OverflowBox(
+              maxWidth: 800.w,
+              maxHeight: 800.h,
+              child: PhotoViewGallery.builder(
+                allowImplicitScrolling: true,
+                //customSize: Size(gWidth, gHeight),
+                itemCount: 1,
+                scrollDirection: Axis.horizontal,
+                enableRotation: true,
+                gaplessPlayback: true,
+                backgroundDecoration: BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                builder: _buildPageOptions,
+                scaleStateChangedCallback: _onScaleStateChanged,
+              ),
+            ),
+          )),
     );
   }
 
   PhotoViewGalleryPageOptions _buildPageOptions(
       BuildContext context, int index) {
-    return PhotoViewGalleryPageOptions(
-        imageProvider: widget.w,
+    return PhotoViewGalleryPageOptions.customChild(
+        child: widget.w,
         initialScale: _scale,
         maxScale: _maxScale,
         basePosition: Alignment.center,
-        tightMode: false,
+        tightMode: true,
         gestureDetectorBehavior: HitTestBehavior.translucent,
         onScaleEnd: _onScaleEnd,
-        
         controller: p);
   }
 
@@ -339,11 +357,9 @@ class NotePainterState extends State<NotePainter> {
 
         break;
       case PhotoViewScaleState.initial:
-        _currentScale =1.0;
+        _currentScale = 1.0;
 
-        setState(() {
-
-        });
+        setState(() {});
         break;
       case PhotoViewScaleState.zoomedOut:
       default:
@@ -355,12 +371,12 @@ class NotePainterState extends State<NotePainter> {
 
   @override
   Widget build(BuildContext context) {
-    return !remove ?
-          Positioned(
+    return !remove
+        ? Positioned(
             left: offset.dx,
             top: offset.dy,
             child: _buildFloating(),
           )
-      :Positioned(child: Container());
+        : Positioned(child: Container());
   }
 }
