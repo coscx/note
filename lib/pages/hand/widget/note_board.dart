@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_note/pages/hand/widget/note_painter.dart';
+import 'package:flutter_note/pages/hand/widget/transform_demo4.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NoteBoard extends StatefulWidget {
@@ -54,28 +55,28 @@ class _NoteBoardState extends State<NoteBoard> {
 
                         //GlobalKey<NotePainterState> s2 = GlobalKey();
                         //m["s2"] = s2;
-                        widgetList.add(
-                            NotePainter(offset: Offset(200.w, 100.h), w:
-                             Image.asset("assets/images/note/c11.png",fit: BoxFit.fill,),
-                              height: 250.h,
-                              width: 250.w,
-                              rotation: 0.5,
-                              scale: 0.1,
-                              maxScale: 0.6,
-
-                            ));
+                        // widgetList.add(
+                        //     NotePainter(offset: Offset(200.w, 100.h), w:
+                        //      Image.asset("assets/images/note/c11.png",fit: BoxFit.fill,),
+                        //       height: 250.h,
+                        //       width: 250.w,
+                        //       rotation: 0.5,
+                        //       scale: 0.1,
+                        //       maxScale: 0.6,
+                        //
+                        //     ));
                         //GlobalKey<NotePainterState> s3 = GlobalKey();
                        // m["s3"] = s3;
-                        widgetList.add(
-                            NotePainter(offset: Offset(200.w, 500.h), w:
-                            Image.asset("assets/images/note/b40.png",fit: BoxFit.fill,),
-                              height: 250.h,
-                              width: 250.w,
-                              rotation: 0.8,
-                              scale: 0.2,
-                              maxScale: 0.7,
-                              rote: 1,
-                            ));
+                       //  widgetList.add(
+                       //      NotePainter(offset: Offset(200.w, 500.h), w:
+                       //      Image.asset("assets/images/note/b40.png",fit: BoxFit.fill,),
+                       //        height: 250.h,
+                       //        width: 250.w,
+                       //        rotation: 0.8,
+                       //        scale: 0.2,
+                       //        maxScale: 0.7,
+                       //        rote: 1,
+                       //      ));
                         // GlobalKey<NotePainterState> s1 = GlobalKey();
                         // m["12"] = s1;
                         // widgetList.add(NotePainter(
@@ -89,25 +90,27 @@ class _NoteBoardState extends State<NoteBoard> {
                         //
                         // GlobalKey<NotePainterState> s3 = GlobalKey();
                         // m["14"] = s3;
-                        widgetList.add(NotePainter(
-                          offset: Offset(50.w, 100.h), w: Container(
-                          alignment: Alignment.center,
-                          child: Container(
-                            width: 400.w,
-                            child: Text(
-                                "和规范化规范化规范化风格化法国大华股份风格的和风格的和发个恢复供电和法规和风格和风格和风格和风格和规范化的恢复供电和房东改恢复供电和",
-                                   overflow: TextOverflow.ellipsis,
-                                maxLines: 8,
-                            ),
-                          ),
-                        ),
-                          height: 200.h,
-                          width: 400.w,
-                          rotation: 0.0,
-                          scale: 0.5,
-                          maxScale: 2.0,
-                          rote: 0,
-                        ));
+
+                        // widgetList.add(NotePainter(
+                        //   offset: Offset(50.w, 100.h), w: Container(
+                        //   alignment: Alignment.center,
+                        //   child: Container(
+                        //     width: 400.w,
+                        //     child: Text(
+                        //         "和规范化规范化规范化风格化法国大华股份风格的和风格的和发个恢复供电和法规和风格和风格和风格和风格和规范化的恢复供电和房东改恢复供电和",
+                        //            overflow: TextOverflow.ellipsis,
+                        //         maxLines: 8,
+                        //     ),
+                        //   ),
+                        // ),
+                        //   height: 200.h,
+                        //   width: 400.w,
+                        //   rotation: 0.0,
+                        //   scale: 0.5,
+                        //   maxScale: 2.0,
+                        //   rote: 0,
+                        // ));
+                        widgetList.add(TransformDemo4(child: Image.asset("assets/images/note/c11.png",fit: BoxFit.fill,),));
                         setState(() {
 
                         });
