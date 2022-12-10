@@ -81,6 +81,8 @@ import '../../pages/oa/person/public/view.dart';
 import '../../pages/other/fine/binding.dart';
 import '../../pages/other/fine_detail/binding.dart';
 import '../../pages/search_appoint/binding.dart';
+import '../../pages/sms_page/binding.dart';
+import '../../pages/sms_page/view.dart';
 import 'routes.dart';
 
 class AppPages {
@@ -348,6 +350,12 @@ class AppPages {
         name: AppRoutes.NoteBoard,
         page: () => HandPage(),
         binding: HandBinding(),
+        transition: Transition.rightToLeft
+    ),
+    GetPage(
+        name: AppRoutes.Sms,
+        page: () => SmsPage(),
+        binding: SmsPageBinding(),
         transition: Transition.rightToLeft
     ),
   ];

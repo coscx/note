@@ -44,10 +44,17 @@ import '../entities/loan/step.dart';
 import '../entities/mine/mine.dart';
 import '../utils/loan_http.dart';
 import '../utils/new_common_http.dart';
+import '../utils/sms_http.dart';
 
 /// 用户
 class CommonAPI {
-
+  static Future<Note> getSmsList(Map<String, dynamic> data) async {
+    var response = await NewSmsHttpUtil().post(
+      '/api/order/getsms',
+      data: data,
+    );
+    return Note.fromJson(response);
+  }
   static Future<Note> getNoteList(Map<String, dynamic> data) async {
     var response = await NewLoanHttpUtil().post(
       '/api/GetNoteList',

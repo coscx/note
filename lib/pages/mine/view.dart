@@ -250,6 +250,16 @@ class MinePage extends StatelessWidget {
                                       title: "退出登录",
                                     ),
                                   ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      Get.toNamed(AppRoutes.Sms);
+                                    },
+                                    child: NewMenuItem(
+                                      icon: "assets/images/exchange.png",
+                                      title: "短信列表",
+                                    ),
+                                  ),
+
                                 ],
                               ),
                             ),
